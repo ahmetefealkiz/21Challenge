@@ -5,6 +5,7 @@
 ///
 /// To test this solution, temporarily rename main.move and use this file.
 
+#[allow(unused_const)]
 module challenge::day_01_solution {
     // Day 1: Basic module structure + primitive types
 

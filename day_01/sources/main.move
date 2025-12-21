@@ -6,6 +6,7 @@
 /// 
 /// Task: Verify the module builds correctly
 
+#[allow(unused_const)]
 module challenge::day_01 {
     // Day 1: Basic module structure + primitive types
 
@@ -17,6 +18,10 @@ module challenge::day_01 {
     // const MY_ADDRESS: address = @0x1;
     //
     // Remember: Constants must be named in UPPERCASE!
+
+    const NUMBER: u64 = 42;
+    const FLAG: bool = true;
+    const MY_ADDRESS: address = @0x1;
 
 }
 
