@@ -6,15 +6,17 @@
 /// 3. Understand basic ownership concepts
 
 module challenge::day_04 {
-    use std::vector;
+    use std::ascii::String;
 
     // Copy the Habit struct from day_03
-    public struct Habit has copy, drop {
-        name: vector<u8>,
-        completed: bool,
+    public struct	Habit has copy, drop
+	{
+        name:		String,
+        completed:	bool,
     }
 
-    public fun new_habit(name: vector<u8>): Habit {
+    public fun	new_habit(name: String): Habit
+	{
         Habit {
             name,
             completed: false,
@@ -27,11 +29,20 @@ module challenge::day_04 {
     // public struct HabitList has drop {
     //     // Your field here
     // }
+	public struct	HabitList has drop
+	{
+		habits:	vector<Habit>
+	}
+
 
     // TODO: Write a function 'empty_list' that returns an empty HabitList
     // public fun empty_list(): HabitList {
     //     // Use vector::empty() to create an empty vector
     // }
+	public fun empty_list(): HabitList
+	{
+		HabitList { habits: vector::empty() }
+	}
 
     // TODO: Write a function 'add_habit' that takes:
     // - list: &mut HabitList (mutable reference)
@@ -40,5 +51,9 @@ module challenge::day_04 {
     // public fun add_habit(list: &mut HabitList, habit: Habit) {
     //     // Your code here
     // }
+	public fun	add_habit(list: &mut HabitList, habit: Habit)
+	{
+		vector::push_back(&mut list.habits, habit)
+	}
 }
 
