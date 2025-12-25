@@ -6,34 +6,37 @@
 /// 3. Write a function to mark a habit as completed
 
 module challenge::day_05 {
-    use std::vector;
+    use std::ascii::String;
 
-    // Copy from day_04
-    public struct Habit has copy, drop {
-        name: vector<u8>,
-        completed: bool,
+    // Copy the Habit struct from day_04
+    public struct	Habit has copy, drop
+	{
+        name:		String,
+        completed:	bool,
     }
 
-    public struct HabitList has drop {
-        habits: vector<Habit>,
-    }
-
-    public fun new_habit(name: vector<u8>): Habit {
+    public fun	new_habit(name: String): Habit
+	{
         Habit {
             name,
             completed: false,
         }
     }
 
-    public fun empty_list(): HabitList {
-        HabitList {
-            habits: vector::empty(),
-        }
-    }
+	public struct	HabitList has drop
+	{
+		habits:	vector<Habit>
+	}
 
-    public fun add_habit(list: &mut HabitList, habit: Habit) {
-        vector::push_back(&mut list.habits, habit);
-    }
+	public fun empty_list(): HabitList
+	{
+		HabitList { habits: vector::empty() }
+	}
+
+	public fun	add_habit(list: &mut HabitList, habit: Habit)
+	{
+		vector::push_back(&mut list.habits, habit)
+	}
 
     // TODO: Write a function 'complete_habit' that:
     // - Takes list: &mut HabitList and index: u64
@@ -45,5 +48,15 @@ module challenge::day_05 {
     //     // Your code here
     //     // Hint: if (index < length) { ... }
     // }
+	public fun	complete_habit(list: &mut HabitList, index: u64)
+	{
+		let len = vector::length(&list.habits);
+
+		if (index >= 0 && index < len)
+		{
+			let habit = vector::borrow_mut(&mut list.habits, index);
+			habit.completed = true;
+		}
+	}
 }
 
