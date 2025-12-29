@@ -18,6 +18,10 @@ module challenge::day_09 {
     //     Open,
     //     Completed,
     // }
+	public enum	TaskStatus has copy, drop {
+		Open,
+		Completed,
+	}
 
     // TODO: Update Task struct to use TaskStatus instead of done: bool
     // public struct Task has copy, drop {
@@ -25,16 +29,31 @@ module challenge::day_09 {
     //     reward: u64,
     //     status: TaskStatus,  // Changed from done: bool
     // }
+	public struct Task has copy, drop {
+		title: String,
+		reward: u64,
+		status: TaskStatus,
+	}
 
     // TODO: Update new_task to set status = TaskStatus::Open
     // public fun new_task(title: String, reward: u64): Task {
     //     // Your code here
     // }
+	public fun new_task(title: String, reward: u64): Task {
+		Task {
+			title,
+			reward,
+			status: TaskStatus::Open,
+		}
+	}
 
     // TODO: Write a function 'is_open' that checks if task.status == TaskStatus::Open
     // public fun is_open(task: &Task): bool {
     //     // Your code here
     //     // Hint: task.status == TaskStatus::Open
     // }
+	public fun is_open(task: &Task): bool {
+		task.status == TaskStatus::Open
+	}
 }
 
