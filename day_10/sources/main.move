@@ -41,6 +41,9 @@ module challenge::day_10 {
     // public fun complete_task(task: &mut Task) {
     //     // Your code here
     // }
+	public fun complete_task(task: &mut Task) {
+		task.status = TaskStatus::Completed;
+	}
 
     // TODO: (Optional) Write a private helper function
     // Private functions use 'fun' instead of 'public fun'
