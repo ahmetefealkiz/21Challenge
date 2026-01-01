@@ -8,9 +8,7 @@
 /// Note: You can copy code from day_11/sources/solution.move if needed
 
 module challenge::day_12 {
-    use std::vector;
     use std::string::String;
-    use std::option::{Self, Option};
 
     // Copy from day_11: TaskStatus, Task, and TaskBoard
     public enum TaskStatus has copy, drop {
@@ -58,5 +56,17 @@ module challenge::day_12 {
     //     // Use option::some(index) if found
     //     // Use option::none() if not found
     // }
+	public fun find_task_by_title(board: &TaskBoard, title: &String) : Option<u64> {
+		let len = vector::length(&board.tasks);
+		let	mut i = 0;
+		while (i < len)
+		{
+			let task = vector::borrow(&board.tasks, i);
+			if (*&task.title == *title) {
+				return option::some(i)
+			};
+			i = i + 1;
+		};
+		option::none()
+	}
 }
-
