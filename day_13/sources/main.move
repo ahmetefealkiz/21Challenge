@@ -8,9 +8,7 @@
 /// Note: You can copy code from day_12/sources/solution.move if needed
 
 module challenge::day_13 {
-    use std::vector;
     use std::string::String;
-    use std::option::{Self, Option};
 
     // Copy from day_12: All structs and functions
     public enum TaskStatus has copy, drop {
@@ -70,6 +68,22 @@ module challenge::day_13 {
     //     // Initialize total = 0
     //     // Loop through tasks, add each reward to total
     // }
+	public fun total_reward(board: &TaskBoard): u64 {
+		let mut	total;
+		let mut	i;
+		let mut task;
+		let len;
+
+		len = vector::length(&board.tasks);
+		total = 0;
+		i = 0;
+		while ( i < len ) {
+			task = vector::borrow(&board.tasks, i);
+			total = total + task.reward;
+			i = i + 1;
+		};
+		total
+	}
 
     // TODO: Write a function 'completed_count' that:
     // - Takes board: &TaskBoard
@@ -78,5 +92,23 @@ module challenge::day_13 {
     // public fun completed_count(board: &TaskBoard): u64 {
     //     // Your code here
     // }
+	public fun completed_count(board: &TaskBoard): u64 {
+		let mut count;
+		let mut task;
+		let mut i;
+		let len;
+
+		len = vector::length(&board.tasks);
+		count = 0;
+		i = 0;
+		while ( i < len ) {
+			task = vector::borrow(&board.tasks, i);
+			if (task.status == TaskStatus::Completed) {
+				count = count + 1;
+			};
+			i = i + 1;
+		};
+		count
+	}
 }
 
