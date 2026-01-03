@@ -8,9 +8,7 @@
 /// Note: You can copy code from day_13/sources/solution.move if needed
 
 module challenge::day_14 {
-    use std::vector;
     use std::string::String;
-    use std::option::{Self, Option};
 
     #[test_only]
     use std::unit_test::assert_eq;
@@ -104,5 +102,56 @@ module challenge::day_14 {
     // fun test_create_board_and_add_task() {
     //     // Your code here
     // }
+	#[test]
+	fun test_create_board_and_add_task() {
+		let mut board;
+		let task;
+
+		task = new_task(string::utf8(b"task"), 100);
+		board = new_board(@0x1);
+
+		add_task(&mut board, task);
+
+		assert_eq!(vector::length(&board.tasks), 1);
+	}
+
+	#[test]
+	fun test_complete_task() {
+		let mut board;
+		let task1;
+		let task2;
+		let task_to_complete;
+
+		board = new_board(@0x1);
+		task1 = new_task(string::utf8(b"task_1"), 100);
+		task2 = new_task(string::utf8(b"task_2"), 100);
+
+		add_task(&mut board, task1);
+		add_task(&mut board, task2);
+
+		task_to_complete = vector::borrow_mut(&mut board.tasks, 0);
+		complete_task(task_to_complete);
+
+		assert_eq!(completed_count(&board), 1);
+	}
+
+	#[test]
+	fun test_total_reward() {
+		let mut board;
+		let task1;
+		let task2;
+		let task3;
+
+		board = new_board(@0x1);
+		task1 = new_task(string::utf8(b"task_1"), 50);
+		task2 = new_task(string::utf8(b"task_2"), 100);
+		task3 = new_task(string::utf8(b"task_3"), 150);
+
+		add_task(&mut board, task1);
+		add_task(&mut board, task2);
+		add_task(&mut board, task3);
+
+		assert_eq!(total_reward(&board), 300);
+	}
 }
 
