@@ -82,6 +82,10 @@ module challenge::day_16 {
     //     id: UID,
     //     counters: FarmCounters,
     // }
+	public struct Farm has key {
+		id: UID,
+		counters: FarmCounters,
+	}
 
     // TODO: Write a constructor 'new_farm' that:
     // - Takes ctx: &mut TxContext
@@ -91,5 +95,11 @@ module challenge::day_16 {
     //     // Your code here
     //     // Hint: let id = object::new(ctx);
     // }
+	fun new_farm(ctx: &mut TxContext): Farm {
+		Farm {
+			id: object::new(ctx),
+			counters: new_counters(),	
+		}
+	}
 }
 
