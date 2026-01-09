@@ -10,6 +10,7 @@
 module challenge::day_20 {
     // TODO: Import the event module here
     // Hint: use sui::event;
+	use sui::event;
 
     const MAX_PLOTS: u64 = 20;
     const E_PLOT_NOT_FOUND: u64 = 1;
@@ -111,15 +112,28 @@ module challenge::day_20 {
     // - Has a field 'planted_after' of type u64
     // - Has 'copy' and 'drop' abilities (required for events)
     // - Is marked as 'public struct'
+	public struct PlantEvent has copy, drop {
+		planted_after: u64,
+	}
 
     // TODO: Create/update the entry function 'plant_on_farm_entry' that:
     // - Takes farm: &mut Farm and plotId: u8 as parameters
     // - Calls plant_on_farm(farm, plotId) to plant
     // - Gets the total planted count using total_planted(farm)
     // - Emits a PlantEvent using event::emit() with the planted_after value
+	entry fun plant_on_farm_entry(farm: &mut Farm, plotId: u8) {
+		let total;
+ 
+		plant_on_farm(farm, plotId);
+		total = total_planted(farm);
+		event::emit(PlantEvent { planted_after: total, });
+	}
 
     // TODO: Create the entry function 'harvest_from_farm_entry' that:
     // - Takes farm: &mut Farm and plotId: u8 as parameters
     // - Calls harvest_from_farm(farm, plotId) to harvest
+	entry fun harvest_from_farm_entry(farm: &mut Farm, plotId: u8) {
+		harvest_from_farm(farm, plotId);
+	}
 }
 
